@@ -19,4 +19,8 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+    public boolean userHasInformation()
+    {
+      return true;
+    }
 }
