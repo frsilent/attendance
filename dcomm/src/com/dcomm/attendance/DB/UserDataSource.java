@@ -59,7 +59,7 @@ public class UserDataSource {
         String where = "eagle_id LIKE " + user.get_eagle_id() + ";";
         database.delete(Adapter.TABLE_USERS,where,null);
     }
-
+    //Made an oops, createUser returns a new user I didn't set a new user. 
     public void editUser(User user, String new_id)
     {
         createUser(user.getName(),new_id);
