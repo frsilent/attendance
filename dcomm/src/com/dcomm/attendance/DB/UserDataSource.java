@@ -65,7 +65,7 @@ public class UserDataSource {
         createUser(user.getName(),new_id);
         deleteUser(user);
     }
-    public boolean checkOnlyUser(Cursor cursor)
+    public boolean checkOnlyUser()
     {
         String countQuery = "SELECT count(*) from users;";
         Cursor tmp =  database.rawQuery(countQuery,null);
