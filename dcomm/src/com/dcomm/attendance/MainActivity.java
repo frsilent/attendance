@@ -1,5 +1,6 @@
 package com.dcomm.attendance;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -7,16 +8,22 @@ import android.widget.EditText;
 import android.view.View;
 import com.dcomm.attendance.DB.*;
 import android.content.Context;
+import android.nfc.NfcAdapter;
+import android.nfc.*;
+import android.os.Parcelable;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
     private EditText name;
     private EditText id;
-    private Adapter dbhelper;
     private UserDataSource database;
     private Context context;
+    private Intent intent;
+    private NdefMessage[] msgs;
+    private NfcAdapter mNfcAdapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-        dbhelper = new Adapter(context);
         database = new UserDataSource(context);
         database.open();
 		super.onCreate(savedInstanceState);
@@ -29,6 +36,13 @@ public class MainActivity extends Activity {
             //Call send message methods and check NFC was called before we set the content view.
             // So may need a loading screen Activity first.
             setContentView(R.layout.activity_main);
+            // Check for available NFC Adapter
+            mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+            if (mNfcAdapter == null) {
+                Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show();
+                finish();
+                return;
+            }
         }
         else
         {
@@ -45,6 +59,21 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+    //Check to see if the app started from a NFC Tag.
+    public void onResume()
+    {
+        super.onResume();
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
+
+            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            if (rawMsgs != null) {
+                msgs = new NdefMessage[rawMsgs.length];
+                for (int i = 0; i < rawMsgs.length; i++) {
+                    msgs[i] = (NdefMessage) rawMsgs[i];
+                }
+            }
+        }
+    }
     public void onClick(View view)
     {
           if(view.getId() == R.id.button_register)
