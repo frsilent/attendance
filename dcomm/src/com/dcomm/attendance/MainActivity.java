@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
                 return;
             }
             message = new Message();
+            message.setStudentID(database.getUserID());
             detectedTag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
         }
