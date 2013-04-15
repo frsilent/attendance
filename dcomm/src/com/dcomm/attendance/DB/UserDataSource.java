@@ -76,4 +76,13 @@ public class UserDataSource {
         else
             return true;
     }
+
+    public String getUserID()
+    {
+        String query = "SELECT eagle_id from users where _id = 1";
+        Cursor tmp = database.rawQuery(query,null);
+        tmp.moveToFirst();
+        String id = tmp.getString(0);
+        return id;
+    }
 }

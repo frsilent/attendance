@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.view.Menu;
 import android.widget.EditText;
 import android.view.View;
+import com.dcomm.attendance.Attendance.Message;
 import com.dcomm.attendance.DB.*;
 import android.content.Context;
 import android.nfc.NfcAdapter;
@@ -21,6 +22,8 @@ public class MainActivity extends Activity {
     private Intent intent;
     private NdefMessage[] msgs;
     private NfcAdapter mNfcAdapter;
+    private Message message;
+    private Tag detectedTag;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,9 @@ public class MainActivity extends Activity {
                 finish();
                 return;
             }
+            message = new Message();
+            detectedTag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
+
         }
         else
         {
