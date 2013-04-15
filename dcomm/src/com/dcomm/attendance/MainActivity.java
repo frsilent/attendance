@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.view.Menu;
 import android.widget.EditText;
 import android.view.View;
-import com.dcomm.attendance.Attendance.Message;
 import com.dcomm.attendance.DB.*;
 import android.content.Context;
 import android.nfc.NfcAdapter;

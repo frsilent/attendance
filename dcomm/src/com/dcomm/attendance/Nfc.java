@@ -1,12 +1,10 @@
-package com.dcomm.attendance.Attendance;
+package com.dcomm.attendance;
 import android.nfc.Tag;
 import android.nfc.tech.MifareUltralight;
 import android.util.Log;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import android.nfc.*;
-
-import static android.content.Intent.getIntent;
 
 /**
  * Created with IntelliJ IDEA.

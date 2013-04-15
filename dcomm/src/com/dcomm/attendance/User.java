@@ -1,4 +1,4 @@
-package com.dcomm.attendance.Attendance;
+package com.dcomm.attendance;
 
 /**
  * Created with IntelliJ IDEA.

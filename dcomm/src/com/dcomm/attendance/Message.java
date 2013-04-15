@@ -1,4 +1,4 @@
-package com.dcomm.attendance.Attendance;
+package com.dcomm.attendance;
 
 import org.apache.http.HttpClientConnection;
 import org.apache.http.client.HttpClient;

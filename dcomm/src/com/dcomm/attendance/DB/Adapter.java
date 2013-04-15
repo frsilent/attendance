@@ -1,5 +1,4 @@
 package com.dcomm.attendance.DB;
-import com.dcomm.attendance.Attendance.User;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.content.Context;

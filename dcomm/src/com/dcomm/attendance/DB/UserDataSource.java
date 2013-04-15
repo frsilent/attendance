@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import com.dcomm.attendance.Attendance.User;
+import com.dcomm.attendance.User;
 
 /**
  * Created with IntelliJ IDEA.
@@ -80,7 +80,7 @@ public class UserDataSource {
     public String getUserID()
     {
         String query = "SELECT eagle_id from users where _id = 1";
-        Cursor tmp = database.rawQuery(query,null);
+        Cursor tmp = database.rawQuery(query, null);
         tmp.moveToFirst();
         String id = tmp.getString(0);
         return id;
