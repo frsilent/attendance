@@ -1,6 +1,7 @@
 package com.dcomm.attendance;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -12,6 +13,9 @@ import android.nfc.NfcAdapter;
 import android.nfc.*;
 import android.os.Parcelable;
 import android.widget.Toast;
+import android.app.PendingIntent;
+
+import static java.lang.System.exit;
 
 public class MainActivity extends Activity {
     private EditText name;
@@ -23,12 +27,14 @@ public class MainActivity extends Activity {
     private NfcAdapter mNfcAdapter;
     private Message message;
     private Tag detectedTag;
+    private IntentFilter[] intentFiltersArray;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         database = new UserDataSource(context);
         database.open();
 		super.onCreate(savedInstanceState);
+
         //Check for A created user in the database. If no user, we load the registration activity page
         // If there is a user, we call the method to send a message to the server, but the method
         // can only be called if the NFC tag has been scanned. Otherwise it will just load a basic screen
@@ -38,17 +44,7 @@ public class MainActivity extends Activity {
             //Call send message methods and check NFC was called before we set the content view.
             // So may need a loading screen Activity first.
             setContentView(R.layout.activity_main);
-            // Check for available NFC Adapter
-            mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-            if (mNfcAdapter == null) {
-                Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show();
-                finish();
-                return;
-            }
-            message = new Message();
-            message.setStudentID(database.getUserID());
-            detectedTag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-
+            exit(0);
         }
         else
         {
@@ -69,17 +65,14 @@ public class MainActivity extends Activity {
     public void onResume()
     {
         super.onResume();
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
 
-            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-            if (rawMsgs != null) {
-                msgs = new NdefMessage[rawMsgs.length];
-                for (int i = 0; i < rawMsgs.length; i++) {
-                    msgs[i] = (NdefMessage) rawMsgs[i];
-                }
-            }
-        }
     }
+
+    public void onPause() {
+        super.onPause();
+        mNfcAdapter.disableForegroundDispatch(this);
+    }
+
     public void onClick(View view)
     {
           if(view.getId() == R.id.button_register)
