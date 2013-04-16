@@ -21,8 +21,8 @@ public class Adapter extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_CREATE =
-            "create table " + TABLE_USERS + "(" + COLUMN_ID + "integer primary key autoincrement, " + COLUMN_EAGLE_ID + " text not null" + COLUMN_NAME
-            + "text not null);";
+            "create table " + TABLE_USERS + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_EAGLE_ID + " text not null, " + COLUMN_NAME
+            + " text not null);";
 
     public Adapter(Context context)
     {

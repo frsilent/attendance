@@ -1,6 +1,9 @@
 package com.dcomm.attendance;
+import android.content.Intent;
 import android.nfc.Tag;
 import android.nfc.tech.MifareUltralight;
+import android.nfc.tech.Ndef;
+import android.os.Parcelable;
 import android.util.Log;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -24,10 +27,16 @@ public class Nfc {
       public Tag detectedTag;
 
       private static final String TAG = Nfc.class.getSimpleName();
+    private NdefMessage[] msgs;
 
     public Nfc(NfcAdapter adapt)
     {
         adapter = adapt;
+
+    }
+
+    public Nfc()
+    {
 
     }
 
@@ -56,18 +65,28 @@ public class Nfc {
         return this.user.get_eagle_id();
     }
 
-    public String readTag(Tag tag) {
-        MifareUltralight mifare = MifareUltralight.get(tag);
+    public String readTag(Tag tag,Intent intent) {
+        Ndef ndef = Ndef.get(tag);
+
         try {
-            mifare.connect();
-            byte[] payload = mifare.readPages(4);
-            return new String(payload, Charset.forName("US-ASCII"));
+            ndef.connect();
+            NdefMessage payload = ndef.getNdefMessage();
+            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            NdefMessage msg = (NdefMessage) rawMsgs[0];
+            NdefRecord record = msg.getRecords()[0];
+            String id = new String(record.getPayload());
+            id = id.substring(3,id.length());
+            setClass_id(id);
+
+            return new String(id);
         } catch (IOException e) {
-            Log.e(TAG, "IOException while writing MifareUltralight message...", e);
+            Log.e(TAG, "IOException while reading message...", e);
+        } catch (FormatException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } finally {
-            if (mifare != null) {
+            if (ndef != null) {
                 try {
-                    mifare.close();
+                    ndef.close();
                 }
                 catch (IOException e) {
                     Log.e(TAG, "Error closing tag...", e);
@@ -75,13 +94,5 @@ public class Nfc {
             }
         }
         return null;
-    }
-    //Method that will send the message to the server, encapsulate the networking shit in this class
-    // So we can call this in the main activity and keep it clean over there but grab the nfc data there,
-    // then parse it and store it in an instance of the class then poof. Send it out using this method.
-    // We can probably specify a server and what not also here but not there yet.
-    public void send_message()
-    {
-
     }
 }

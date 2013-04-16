@@ -73,6 +73,7 @@ public class Message {
             messagePairs.add(new BasicNameValuePair("ClassID",ClassID));
             post.setEntity(new UrlEncodedFormEntity(messagePairs));
             HttpResponse response = client.execute(post);
+
             //Do some reading of data or something.
             BufferedReader red = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         } catch(IOException e)

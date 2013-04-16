@@ -2,6 +2,7 @@ package com.dcomm.attendance;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.FormatException;
@@ -25,36 +26,30 @@ import java.io.IOException;
  */
 public class NfcActivity extends Activity {
 
-    IntentFilter[] intentFiltersArray;
+    //IntentFilter[] intentFiltersArray;
     private NfcAdapter mNfcAdapter;
     private Message message;
-    private UserDataSource database;
+    //private UserDataSource database;
+    private Nfc nfc;
     private Tag detectedTag;
     private Ndef ndef;
+    private Context context;
     private Intent intent;
     private NdefMessage[] msgs;
     private NdefMessage nmessage;
-    private ProgressDialog mDialog = new ProgressDialog(getApplicationContext());
+    private ProgressDialog mDialog;
+    private IntentFilter[] intentFiltersArray;
+    private UserDataSource data;
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mDialog.setMessage("Loading...");
-        mDialog.setCancelable(false);
-        mDialog.show();
+        data = new UserDataSource(getApplicationContext());
+        nfc = new Nfc(mNfcAdapter);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-        IntentFilter ndefFilter = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
-        try {
-            ndefFilter.addDataType("text/plain");
 
-        }
-        catch (IntentFilter.MalformedMimeTypeException e) {
-            throw new RuntimeException("fail", e);
-        }
-        intentFiltersArray = new IntentFilter[] {ndefFilter, };
 
     }
 
@@ -74,35 +69,27 @@ public class NfcActivity extends Activity {
     public void onResume()
     {
         super.onResume();
-        mDialog.setMessage("Sending...");
-        mDialog.setCancelable(false);
-        mDialog.show();
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (mNfcAdapter == null) {
             Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(getIntent().getAction())) {
-
-            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-            if (rawMsgs != null) {
-                msgs = new NdefMessage[rawMsgs.length];
-                for (int i = 0; i < rawMsgs.length; i++) {
-                    msgs[i] = (NdefMessage) rawMsgs[i];
-                }
-            }
-        }
-        message = new Message();
-        message.setStudentID(database.getUserID());
-        //detectedTag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-
-        mDialog.dismiss();
+       detectedTag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
+       nfc = new Nfc();
+       String id = nfc.readTag(detectedTag,getIntent());
+       message = new Message();
+       data.open();
+       String s_id = data.getUserID();
+       message.setStudentID(s_id);
+       message.setClassID(id);
+       System.out.println("MESSAGE DATA: " + message.getStudentID() + ":" + message.getClassID());
+       data.close();
     }
 
     public void onPause() {
         super.onPause();
-        mNfcAdapter.disableForegroundDispatch(this);
+        //mNfcAdapter.disableForegroundDispatch(this);
     }
 
 }

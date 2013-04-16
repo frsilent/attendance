@@ -1,10 +1,12 @@
 package com.dcomm.attendance;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
 import com.dcomm.attendance.DB.*;
@@ -19,38 +21,46 @@ import static java.lang.System.exit;
 
 public class MainActivity extends Activity {
     private EditText name;
+    private Button register;
     private EditText id;
-    private UserDataSource database;
+    private UserDataSource data;
+    private Adapter adapter;
     private Context context;
     private Intent intent;
-    private NdefMessage[] msgs;
-    private NfcAdapter mNfcAdapter;
-    private Message message;
-    private Tag detectedTag;
-    private IntentFilter[] intentFiltersArray;
+    //private NdefMessage[] msgs;
+    //private NfcAdapter mNfcAdapter;
+    //private Message message;
+    //private Tag detectedTag;
+    //private IntentFilter[] intentFiltersArray;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-        database = new UserDataSource(context);
-        database.open();
 		super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+        data = new UserDataSource(getApplicationContext());
+        register = (Button)  findViewById(R.id.button_register);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //To change body of implemented methods use File | Settings | File Templates.
+                if(view.getId() == R.id.button_register)
+                {
+                    System.out.println("Working");
+                    name = (EditText)findViewById(R.id.editText_name);
+                    String s_name = name.getText().toString();
+                    id = (EditText)findViewById(R.id.editText_eagleid);
+                    String s_id = id.getText().toString();
+                    ///database = new UserDataSource(context);
+                    data.open();
+                    if(!data.checkOnlyUser())
+                        data.createUser(s_name,s_id);
+                    data.close();
 
-        //Check for A created user in the database. If no user, we load the registration activity page
-        // If there is a user, we call the method to send a message to the server, but the method
-        // can only be called if the NFC tag has been scanned. Otherwise it will just load a basic screen
-        // placeholder page if the user clicks on the app. Other features can be added later.
-        if(database.checkOnlyUser())
-        {
-            //Call send message methods and check NFC was called before we set the content view.
-            // So may need a loading screen Activity first.
-            setContentView(R.layout.activity_main);
-            exit(0);
-        }
-        else
-        {
-            setContentView(R.layout.activity_register);
-        }
-        database.close();
+
+                }
+            }
+        });
+
 
 	}
 
@@ -65,32 +75,27 @@ public class MainActivity extends Activity {
     public void onResume()
     {
         super.onResume();
+        System.out.println("OnResume");
+        //database = new UserDataSource(context);
+        data.open();
+        if(data.checkOnlyUser())
+        {
+            setContentView(R.layout.activity_overview);
+            System.out.println(data.getUserID());
+        }
+        else
+        {
+            setContentView(R.layout.activity_register);
+        }
+        data.close();
 
     }
 
     public void onPause() {
         super.onPause();
-        mNfcAdapter.disableForegroundDispatch(this);
-    }
-
-    public void onClick(View view)
-    {
-          if(view.getId() == R.id.button_register)
-          {
-              name = (EditText)findViewById(R.id.editText_name);
-              String s_name = name.getText().toString();
-              id = (EditText)findViewById(R.id.editText_eagleid);
-              String s_id = id.getText().toString();
-              database = new UserDataSource(context);
-              database.open();
-              if(database.checkOnlyUser())
-                    database.createUser(s_name,s_id);
-              database.close();
-
-
-          }
 
     }
+
     public boolean userHasInformation()
     {
       return true;
