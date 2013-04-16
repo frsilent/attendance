@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="Name here"
             android:id="@+id/editText_name"
-            android:layout_alignParentLeft="true" android:layout_marginLeft="120dp"
+            android:layout_alignParentLeft="true" android:layout_marginLeft="143dp"
             android:layout_alignBaseline="@+id/textView"/>
     <TextView
             android:layout_width="wrap_content"
@@ -36,6 +36,5 @@
             android:layout_height="wrap_content"
             android:text="ID here"
             android:id="@+id/editText_eagleid"
-            android:layout_alignParentLeft="true" android:layout_marginLeft="120dp"
-            android:layout_alignBottom="@+id/textView1"/>
+            android:layout_alignRight="@+id/editText_name" android:layout_alignBottom="@+id/textView1"/>
 </RelativeLayout>

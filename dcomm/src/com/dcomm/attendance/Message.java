@@ -25,7 +25,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class Message {
-    public static final String URL = "www.cslansing.com/dcomm/upload";
+    public static final String URL = "http://cslansing.com/attendance/";
     private String studentID;
     private String ClassID;
 
@@ -65,17 +65,20 @@ public class Message {
     public void postData()
     {
         HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost(URL);
+        HttpPost post = new HttpPost("http://cslansing.com/attendance");
 
         try{
             List<NameValuePair> messagePairs = new ArrayList<NameValuePair>(2);
             messagePairs.add(new BasicNameValuePair("StudentID",studentID));
             messagePairs.add(new BasicNameValuePair("ClassID",ClassID));
             post.setEntity(new UrlEncodedFormEntity(messagePairs));
-            HttpResponse response = client.execute(post);
+            client.execute(post);
 
             //Do some reading of data or something.
-            BufferedReader red = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            //BufferedReader red = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        } catch(ClientProtocolException e)
+        {
+            //TODO AUto generated
         } catch(IOException e)
         {
             //TODO:  Catch exception

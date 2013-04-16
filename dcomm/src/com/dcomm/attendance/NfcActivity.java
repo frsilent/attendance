@@ -12,6 +12,8 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import com.dcomm.attendance.DB.UserDataSource;
 
@@ -26,20 +28,20 @@ import java.io.IOException;
  */
 public class NfcActivity extends Activity {
 
-    //IntentFilter[] intentFiltersArray;
     private NfcAdapter mNfcAdapter;
     private Message message;
-    //private UserDataSource database;
+
     private Nfc nfc;
     private Tag detectedTag;
     private Ndef ndef;
-    private Context context;
-    private Intent intent;
-    private NdefMessage[] msgs;
+    //private Context context;
+    //private Intent intent;
+    //private NdefMessage[] msgs;
     private NdefMessage nmessage;
-    private ProgressDialog mDialog;
-    private IntentFilter[] intentFiltersArray;
+    //private ProgressDialog mDialog;
+    //private IntentFilter[] intentFiltersArray;
     private UserDataSource data;
+    private Button ok;
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -49,6 +51,15 @@ public class NfcActivity extends Activity {
         nfc = new Nfc(mNfcAdapter);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+
+         ok = (Button) findViewById(R.id.button);
+         ok.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 //To change body of implemented methods use File | Settings | File Templates.
+                 NfcActivity.this.finish();
+             }
+         });
 
 
     }
@@ -84,6 +95,9 @@ public class NfcActivity extends Activity {
        message.setStudentID(s_id);
        message.setClassID(id);
        System.out.println("MESSAGE DATA: " + message.getStudentID() + ":" + message.getClassID());
+       MessageTask task = new MessageTask();
+       task.setMessage(message);
+       task.execute();
        data.close();
     }
 

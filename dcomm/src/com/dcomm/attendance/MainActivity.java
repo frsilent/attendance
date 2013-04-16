@@ -45,12 +45,10 @@ public class MainActivity extends Activity {
                 //To change body of implemented methods use File | Settings | File Templates.
                 if(view.getId() == R.id.button_register)
                 {
-                    System.out.println("Working");
                     name = (EditText)findViewById(R.id.editText_name);
                     String s_name = name.getText().toString();
                     id = (EditText)findViewById(R.id.editText_eagleid);
                     String s_id = id.getText().toString();
-                    ///database = new UserDataSource(context);
                     data.open();
                     if(!data.checkOnlyUser())
                         data.createUser(s_name,s_id);
@@ -75,7 +73,6 @@ public class MainActivity extends Activity {
     public void onResume()
     {
         super.onResume();
-        System.out.println("OnResume");
         //database = new UserDataSource(context);
         data.open();
         if(data.checkOnlyUser())
@@ -94,10 +91,5 @@ public class MainActivity extends Activity {
     public void onPause() {
         super.onPause();
 
-    }
-
-    public boolean userHasInformation()
-    {
-      return true;
     }
 }
