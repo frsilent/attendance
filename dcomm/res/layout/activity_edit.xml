@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eagle ID"
+            android:id="@id/editText_newid"
+            android:layout_alignParentLeft="true" android:layout_marginLeft="154dp" android:layout_alignParentTop="true"
+            android:layout_marginTop="30dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eagle ID:"
+            android:id="@+id/textView" android:layout_alignParentLeft="true" android:layout_marginLeft="23dp"
+            android:layout_alignTop="@id/editText_newid" android:layout_alignBottom="@id/editText_newid" android:textSize="20dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name:"
+            android:id="@+id/textView1"
+            android:layout_alignParentLeft="true" android:layout_marginLeft="25dp" android:layout_alignParentTop="true"
+            android:layout_marginTop="98dp" android:textSize="20dp" android:layout_alignRight="@+id/textView"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name "
+            android:id="@id/editText_newname"
+            android:layout_alignRight="@id/editText_newid" android:layout_alignBottom="@+id/textView1"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save Info"
+            android:id="@id/Save_Info"
+            android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
+            android:layout_marginTop="189dp"/>
+</RelativeLayout>

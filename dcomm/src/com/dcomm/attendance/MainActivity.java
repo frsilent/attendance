@@ -27,11 +27,6 @@ public class MainActivity extends Activity {
     private Adapter adapter;
     private Context context;
     private Intent intent;
-    //private NdefMessage[] msgs;
-    //private NfcAdapter mNfcAdapter;
-    //private Message message;
-    //private Tag detectedTag;
-    //private IntentFilter[] intentFiltersArray;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +73,45 @@ public class MainActivity extends Activity {
         if(data.checkOnlyUser())
         {
             setContentView(R.layout.activity_overview);
-            System.out.println(data.getUserID());
+            final Button button = (Button) findViewById(R.id.Edit_Info);
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    if(v.getId() == R.id.Edit_Info)
+                    {
+                    Intent myintent = new Intent(MainActivity.this,EditActivity.class);
+                    MainActivity.this.startActivity(myintent);
+                    }
+                }
+            });
         }
         else
         {
             setContentView(R.layout.activity_register);
+            data = new UserDataSource(getApplicationContext());
+            register = (Button)  findViewById(R.id.button_register);
+            register.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //To change body of implemented methods use File | Settings | File Templates.
+                    if(view.getId() == R.id.button_register)
+                    {
+                        name = (EditText)findViewById(R.id.editText_name);
+                        String s_name = name.getText().toString();
+                        id = (EditText)findViewById(R.id.editText_eagleid);
+                        String s_id = id.getText().toString();
+                        data.open();
+                        if(!data.checkOnlyUser())
+                            data.createUser(s_name,s_id);
+                            System.out.println(data.checkOnlyUser());
+                        data.close();
+                        setContentView(R.layout.activity_overview);
+
+                    }
+                }
+            });
+
+
+
         }
         data.close();
 

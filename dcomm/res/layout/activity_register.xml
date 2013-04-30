@@ -22,8 +22,8 @@
             android:layout_height="wrap_content"
             android:text="Name here"
             android:id="@+id/editText_name"
-            android:layout_alignParentLeft="true" android:layout_marginLeft="143dp"
-            android:layout_alignBaseline="@+id/textView"/>
+            android:layout_alignParentLeft="true" android:layout_marginLeft="134dp"
+            android:layout_alignTop="@+id/textView"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

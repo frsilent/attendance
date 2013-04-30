@@ -35,6 +35,10 @@
                 <data android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.dcomm.attendance.EditActivity"
+            android:label="@string/app_name">
+        </activity>
     </application>
 
 </manifest>

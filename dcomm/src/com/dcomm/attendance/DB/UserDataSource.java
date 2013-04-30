@@ -38,7 +38,8 @@ public class UserDataSource {
         ContentValues values = new ContentValues();
         values.put(Adapter.COLUMN_EAGLE_ID, eagle_id);
         values.put(Adapter.COLUMN_NAME, name);
-        long insertId = database.insert(Adapter.TABLE_USERS, null, values);
+        Long insertId = database.insert(Adapter.TABLE_USERS, null, values);
+        System.out.println(insertId.toString());
         Cursor cursor = database.query(Adapter.TABLE_USERS, allcolumns, Adapter.COLUMN_ID + " = " + insertId, null, null, null, null);
         cursor.moveToFirst();
         User newUser = cursorToUser(cursor);
@@ -54,16 +55,19 @@ public class UserDataSource {
         return user;
     }
 
-    private void deleteUser(User user)
+    private void deleteUser()
     {
-        String where = "eagle_id LIKE " + user.get_eagle_id() + ";";
-        database.delete(Adapter.TABLE_USERS,where,null);
+        String where = "_id LIKE " + "1" + ";";
+        database.delete(Adapter.TABLE_USERS,null,null);
     }
     //Made an oops, createUser returns a new user I didn't set a new user. 
-    public void editUser(User user, String new_id)
+    public void editUser(String new_name, String new_id)
     {
-        createUser(user.getName(),new_id);
-        deleteUser(user);
+        ContentValues values = new ContentValues();
+        values.put(Adapter.COLUMN_EAGLE_ID, new_id);
+        values.put(Adapter.COLUMN_NAME,new_name);
+        database.update(Adapter.TABLE_USERS,values,"_id = 1",null);
+
     }
     public boolean checkOnlyUser()
     {

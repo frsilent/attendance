@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.InterruptedIOException;
 import org.apache.http.*;
+
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +29,9 @@ import java.util.List;
 public class Message {
     public static final String URL = "http://cslansing.com/attendance/";
     private String studentID;
+    private String en_studentID;
     private String ClassID;
-
+    private static final String key = "PuN5XfYtn";
     public Message(String sID, String cID)
     {
         studentID = sID;
@@ -65,17 +68,18 @@ public class Message {
     public void postData()
     {
         HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost("http://cslansing.com/attendance");
+        HttpPost post = new HttpPost("http://www.cslansing.com/attendance/");
 
         try{
             List<NameValuePair> messagePairs = new ArrayList<NameValuePair>(2);
+            //messagePairs.add(new BasicNameValuePair("StudentID",studentID));
             messagePairs.add(new BasicNameValuePair("StudentID",studentID));
             messagePairs.add(new BasicNameValuePair("ClassID",ClassID));
+            messagePairs.add(new BasicNameValuePair("Key",key));
             post.setEntity(new UrlEncodedFormEntity(messagePairs));
-            client.execute(post);
+            HttpResponse response = client.execute(post);
+            System.out.println(response.getStatusLine());
 
-            //Do some reading of data or something.
-            //BufferedReader red = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
         } catch(ClientProtocolException e)
         {
             //TODO AUto generated

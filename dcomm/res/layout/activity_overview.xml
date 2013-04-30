@@ -8,6 +8,16 @@
             android:layout_width="131dp"
             android:layout_height="wrap_content"
             android:text="@string/overview_name"
-            android:id="@+id/textView" android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
-            android:layout_marginTop="19dp"/>
+            android:id="@+id/textView"
+            android:gravity="center"
+            android:layout_alignParentLeft="true" android:layout_marginLeft="82dp" android:layout_alignParentTop="true"
+            android:layout_marginTop="6dp"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Info"
+            android:id="@id/Edit_Info"
+            android:gravity="center"
+            android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
+            android:layout_marginTop="205dp"/>
 </RelativeLayout>
