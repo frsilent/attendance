@@ -11,44 +11,35 @@ import android.widget.EditText;
 import com.dcomm.attendance.DB.Adapter;
 import com.dcomm.attendance.DB.UserDataSource;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Brandon
- * Date: 4/28/13
- * Time: 3:17 PM
- * To change this template use File | Settings | File Templates.
- */
 public class EditActivity extends Activity {
 
     private EditText name;
     private Button edit;
     private EditText id;
     private UserDataSource data;
-    private Adapter adapter;
-    private Context context;
-    private Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
         data = new UserDataSource(getApplicationContext());
-        edit = (Button)  findViewById(R.id.Save_Info);
+        edit = (Button)  findViewById(R.id.SaveInfo);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //To change body of implemented methods use File | Settings | File Templates.
-                if(view.getId() == R.id.Save_Info)
+
+                if(view.getId() == R.id.SaveInfo)
                 {
-                    name = (EditText)findViewById(R.id.editText_newname);
+                    name = (EditText)findViewById(R.id.EditedName);
                     String s_name = name.getText().toString();
-                    id = (EditText)findViewById(R.id.editText_newid);
+                    id = (EditText)findViewById(R.id.EditedID);
                     String s_id = id.getText().toString();
                     data.open();
                     data.editUser(s_name,s_id);
                     data.close();
-                    Intent myintent = new Intent(EditActivity.this,MainActivity.class);
-                    EditActivity.this.startActivity(myintent);
+                    Intent myIntent = new Intent(EditActivity.this,MainActivity.class);
+                    EditActivity.this.startActivity(myIntent);
 
 
                 }
@@ -72,20 +63,20 @@ public class EditActivity extends Activity {
         //database = new UserDataSource(context);
         data.open();
             setContentView(R.layout.activity_edit);
-            final Button button = (Button) findViewById(R.id.Save_Info);
+            final Button button = (Button) findViewById(R.id.SaveInfo);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if(v.getId() == R.id.Save_Info)
+                    if(v.getId() == R.id.SaveInfo)
                     {
-                        name = (EditText)findViewById(R.id.editText_newname);
-                        String s_name = name.getText().toString();
-                        id = (EditText)findViewById(R.id.editText_newid);
-                        String s_id = id.getText().toString();
+                        name = (EditText)findViewById(R.id.EditedName);
+                        String studentName = name.getText().toString();
+                        id = (EditText)findViewById(R.id.EditedID);
+                        String studentID = id.getText().toString();
                         data.open();
-                        data.editUser(s_name,s_id);
+                        data.editUser(studentName,studentID);
                         data.close();
-                        Intent myintent = new Intent(EditActivity.this,MainActivity.class);
-                        EditActivity.this.startActivity(myintent);
+                        Intent myIntent = new Intent(EditActivity.this,MainActivity.class);
+                        EditActivity.this.startActivity(myIntent);
                     }
                 }
             });

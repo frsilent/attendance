@@ -19,19 +19,15 @@ import android.nfc.*;
 
 
 public class Nfc {
-      private User user;
-      private String class_id;
-      private String server_ip;
-      private String server_name;
-      public NfcAdapter adapter;
-      public Tag detectedTag;
-
-      private static final String TAG = Nfc.class.getSimpleName();
+    private User user;
+    private String classID;
+    public NfcAdapter adapter;
+    private static final String TAG = Nfc.class.getSimpleName();
     private NdefMessage[] msgs;
 
-    public Nfc(NfcAdapter adapt)
+    public Nfc(NfcAdapter adapter)
     {
-        adapter = adapt;
+        this.adapter = adapter;
 
     }
 
@@ -40,9 +36,9 @@ public class Nfc {
 
     }
 
-    public void setClass_id(String id)
+    public void setClassID(String classID)
     {
-        this.class_id = id;
+        this.classID = classID;
     }
 
     public void setUser(User u)
@@ -50,9 +46,9 @@ public class Nfc {
         this.user = u;
     }
 
-    public String getClass_id()
+    public String getClassID()
     {
-        return this.class_id;
+        return this.classID;
     }
 
     public String getUserName()
@@ -60,7 +56,7 @@ public class Nfc {
         return this.user.getName();
     }
 
-    public String getUserId()
+    public String getUserID()
     {
         return this.user.get_eagle_id();
     }
@@ -76,7 +72,7 @@ public class Nfc {
             NdefRecord record = msg.getRecords()[0];
             String id = new String(record.getPayload());
             id = id.substring(3,id.length());
-            setClass_id(id);
+            setClassID(id);
 
             return new String(id);
         } catch (IOException e) {

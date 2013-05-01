@@ -1,3 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<item name="Edit_Info" type="id">edit_info</item><item name="Save_Info" type="id">save_info</item><item name="editText_newname" type="id">editText_newname</item><item name="editText_newid" type="id">editText_newid</item></resources>
+<item name="EditInfo" type="id">editInfo</item><item name="SaveInfo" type="id">saveInfo</item><item name="EditedName" type="id">editedName</item><item name="EditedID" type="id">editedID</item><item name="RegisterID" type="id">registerID</item><item name="RegisterName" type="id">registerName</item></resources>

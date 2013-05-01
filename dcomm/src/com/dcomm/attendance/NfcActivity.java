@@ -30,16 +30,10 @@ public class NfcActivity extends Activity {
 
     private NfcAdapter mNfcAdapter;
     private Message message;
-
     private Nfc nfc;
     private Tag detectedTag;
     private Ndef ndef;
-    //private Context context;
-    //private Intent intent;
-    //private NdefMessage[] msgs;
     private NdefMessage nmessage;
-    //private ProgressDialog mDialog;
-    //private IntentFilter[] intentFiltersArray;
     private UserDataSource data;
     private Button ok;
 
@@ -56,7 +50,6 @@ public class NfcActivity extends Activity {
          ok.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                 //To change body of implemented methods use File | Settings | File Templates.
                  NfcActivity.this.finish();
              }
          });
@@ -80,30 +73,32 @@ public class NfcActivity extends Activity {
     public void onResume()
     {
         super.onResume();
+        nfc = new Nfc();
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+
         if (mNfcAdapter == null) {
             Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
-       detectedTag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-       nfc = new Nfc();
-       String id = nfc.readTag(detectedTag,getIntent());
-       message = new Message();
-       data.open();
-       String s_id = data.getUserID();
-       message.setStudentID(s_id);
-       message.setClassID(id);
-       System.out.println("MESSAGE DATA: " + message.getStudentID() + ":" + message.getClassID());
-       MessageTask task = new MessageTask();
-       task.setMessage(message);
-       task.execute();
-       data.close();
+
+        //Set up message parameters
+        detectedTag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        message = new Message();
+        data.open();
+        String studentID = data.getUserID();
+        message.setStudentID(studentID);
+        message.setClassID(nfc.readTag(detectedTag,getIntent()));    //Set Class ID from the nfc tags content
+
+        //Set up task and send message
+        MessageTask task = new MessageTask();
+        task.setMessage(message);
+        task.execute();
+        data.close();
     }
 
     public void onPause() {
         super.onPause();
-        //mNfcAdapter.disableForegroundDispatch(this);
     }
 
 }

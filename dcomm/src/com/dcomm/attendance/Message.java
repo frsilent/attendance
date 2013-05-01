@@ -27,15 +27,16 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class Message {
+
     public static final String URL = "http://cslansing.com/attendance/";
     private String studentID;
-    private String en_studentID;
-    private String ClassID;
+    private String classID;
     private static final String key = "PuN5XfYtn";
-    public Message(String sID, String cID)
+
+    public Message(String studentID, String classID)
     {
-        studentID = sID;
-        ClassID = cID;
+        this.studentID = studentID;
+        this.classID = classID;
 
     }
 
@@ -44,14 +45,14 @@ public class Message {
 
     }
 
-    public void setStudentID(String id)
+    public void setStudentID(String studentID)
     {
-        studentID = id;
+        this.studentID = studentID;
     }
 
     public void setClassID(String ClassID)
     {
-        this.ClassID = ClassID;
+        this.classID = ClassID;
     }
 
     public String getStudentID()
@@ -61,7 +62,7 @@ public class Message {
 
     public String getClassID()
     {
-        return ClassID;
+        return classID;
     }
     //Post data sends the data to the URL on chris' website. We catch the data by having a view on the site
     // Grab the post data and store it in the database as an object or something. Easily done with django.
@@ -72,9 +73,8 @@ public class Message {
 
         try{
             List<NameValuePair> messagePairs = new ArrayList<NameValuePair>(2);
-            //messagePairs.add(new BasicNameValuePair("StudentID",studentID));
             messagePairs.add(new BasicNameValuePair("StudentID",studentID));
-            messagePairs.add(new BasicNameValuePair("ClassID",ClassID));
+            messagePairs.add(new BasicNameValuePair("ClassID",classID));
             messagePairs.add(new BasicNameValuePair("Key",key));
             post.setEntity(new UrlEncodedFormEntity(messagePairs));
             HttpResponse response = client.execute(post);

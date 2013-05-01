@@ -8,7 +8,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Eagle ID"
-            android:id="@id/editText_newid"
+            android:id="@id/EditedID"
             android:layout_alignParentLeft="true" android:layout_marginLeft="154dp" android:layout_alignParentTop="true"
             android:layout_marginTop="30dp"/>
     <TextView
@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:text="Eagle ID:"
             android:id="@+id/textView" android:layout_alignParentLeft="true" android:layout_marginLeft="23dp"
-            android:layout_alignTop="@id/editText_newid" android:layout_alignBottom="@id/editText_newid" android:textSize="20dp"/>
+            android:layout_alignTop="@id/EditedID" android:layout_alignBottom="@id/EditedID" android:textSize="20dp"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,13 +28,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name "
-            android:id="@id/editText_newname"
-            android:layout_alignRight="@id/editText_newid" android:layout_alignBottom="@+id/textView1"/>
+            android:id="@id/EditedName"
+            android:layout_alignRight="@id/EditedID" android:layout_alignBottom="@+id/textView1"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save Info"
-            android:id="@id/Save_Info"
+            android:id="@id/SaveInfo"
             android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
             android:layout_marginTop="189dp"/>
 </RelativeLayout>

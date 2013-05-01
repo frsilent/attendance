@@ -3,7 +3,7 @@
 
     <string name="app_name">attendance</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string><string name="verified">You have been verified for class!</string>
+    <string name="verified">You have been verified for class!</string>
     <string name="overview_name">Attendance Application</string>
 
 </resources>

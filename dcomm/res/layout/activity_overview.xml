@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Edit Info"
-            android:id="@id/Edit_Info"
+            android:id="@id/EditInfo"
             android:gravity="center"
             android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
             android:layout_marginTop="205dp"/>

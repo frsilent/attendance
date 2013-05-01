@@ -16,7 +16,7 @@ import com.dcomm.attendance.User;
 public class UserDataSource {
     private SQLiteDatabase database;
     private Adapter dbHelper;
-    private String[] allcolumns = { Adapter.COLUMN_ID, Adapter.COLUMN_EAGLE_ID, Adapter.COLUMN_NAME};
+    private String[] allColumns = { Adapter.COLUMN_ID, Adapter.COLUMN_EAGLE_ID, Adapter.COLUMN_NAME};
 
     public UserDataSource(Context context)
     {
@@ -40,7 +40,7 @@ public class UserDataSource {
         values.put(Adapter.COLUMN_NAME, name);
         Long insertId = database.insert(Adapter.TABLE_USERS, null, values);
         System.out.println(insertId.toString());
-        Cursor cursor = database.query(Adapter.TABLE_USERS, allcolumns, Adapter.COLUMN_ID + " = " + insertId, null, null, null, null);
+        Cursor cursor = database.query(Adapter.TABLE_USERS, allColumns, Adapter.COLUMN_ID + " = " + insertId, null, null, null, null);
         cursor.moveToFirst();
         User newUser = cursorToUser(cursor);
         cursor.close();
@@ -55,12 +55,6 @@ public class UserDataSource {
         return user;
     }
 
-    private void deleteUser()
-    {
-        String where = "_id LIKE " + "1" + ";";
-        database.delete(Adapter.TABLE_USERS,null,null);
-    }
-    //Made an oops, createUser returns a new user I didn't set a new user. 
     public void editUser(String new_name, String new_id)
     {
         ContentValues values = new ContentValues();
@@ -75,10 +69,7 @@ public class UserDataSource {
         Cursor tmp =  database.rawQuery(countQuery,null);
         tmp.moveToFirst();
         int count = tmp.getInt(0);
-        if(count != 1)
-            return false;
-        else
-            return true;
+        return (count == 1);
     }
 
     public String getUserID()
@@ -86,7 +77,6 @@ public class UserDataSource {
         String query = "SELECT eagle_id from users where _id = 1";
         Cursor tmp = database.rawQuery(query, null);
         tmp.moveToFirst();
-        String id = tmp.getString(0);
-        return id;
+        return tmp.getString(0);
     }
 }

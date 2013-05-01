@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name here"
-            android:id="@+id/editText_name"
+            android:id="@id/RegisterName"
             android:layout_alignParentLeft="true" android:layout_marginLeft="134dp"
             android:layout_alignTop="@+id/textView"/>
     <TextView
@@ -35,6 +35,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID here"
-            android:id="@+id/editText_eagleid"
-            android:layout_alignRight="@+id/editText_name" android:layout_alignBottom="@+id/textView1"/>
+            android:id="@id/RegisterID"
+            android:layout_alignRight="@id/RegisterName" android:layout_alignBottom="@+id/textView1"/>
 </RelativeLayout>

@@ -14,10 +14,11 @@ import java.net.URL;
 public class MessageTask extends AsyncTask<String, Void, Message> {
     private Message mes;
     private URL url;
+
     @Override
     protected Message doInBackground(String... strings) {
         mes.postData();
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
 
     }
 
