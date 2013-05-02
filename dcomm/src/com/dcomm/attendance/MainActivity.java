@@ -29,12 +29,12 @@ public class MainActivity extends Activity {
                 if(view.getId() == R.id.button_register)
                 {
                     name = (EditText)findViewById(R.id.RegisterName);
-                    String s_name = name.getText().toString();
+                    String studentName = name.getText().toString();
                     id = (EditText)findViewById(R.id.RegisterID);
-                    String s_id = id.getText().toString();
+                    Integer studentID = Integer.parseInt(id.getText().toString());
                     data.open();
                     if(!data.checkOnlyUser())
-                        data.createUser(s_name,s_id);
+                        data.createUser(studentName,studentID);
                     data.close();
 
 
@@ -84,12 +84,12 @@ public class MainActivity extends Activity {
                     if(view.getId() == R.id.button_register)
                     {
                         name = (EditText)findViewById(R.id.RegisterName);
-                        String s_name = name.getText().toString();
+                        String studentName = name.getText().toString();
                         id = (EditText)findViewById(R.id.RegisterID);
-                        String s_id = id.getText().toString();
+                        Integer studentID = Integer.parseInt(id.getText().toString());
                         data.open();
                         if(!data.checkOnlyUser())
-                            data.createUser(s_name,s_id);
+                            data.createUser(studentName,studentID);
                             System.out.println(data.checkOnlyUser());
                         data.close();
                         setContentView(R.layout.activity_overview);

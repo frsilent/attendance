@@ -9,10 +9,10 @@ package com.dcomm.attendance;
  */
 public class User {
     private int id;
-    private String _eagle_id;
+    private Integer eagleID;
     private String name;
 
-    public void set_id(int id)
+    public void setID(int id)
     {
            this.id = id;
     }
@@ -21,9 +21,9 @@ public class User {
     {
         return id;
     }
-    public void set_eagle_id(String id)
+    public void setEagleID(Integer eagleID)
     {
-        _eagle_id = id;
+        this.eagleID = eagleID;
     }
 
     public void setName(String name)
@@ -31,9 +31,9 @@ public class User {
         this.name = name;
     }
 
-    public String get_eagle_id()
+    public Integer getEagleID()
     {
-        return _eagle_id;
+        return eagleID;
     }
 
     public String getName()
@@ -44,6 +44,6 @@ public class User {
     public String toString()
     {
 
-        return name + "_" + _eagle_id;
+        return name + "_" + eagleID.toString();
     }
 }

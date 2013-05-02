@@ -33,10 +33,10 @@ public class UserDataSource {
         dbHelper.close();
     }
 
-    public User createUser(String name, String eagle_id)
+    public User createUser(String name, int eagleID)
     {
         ContentValues values = new ContentValues();
-        values.put(Adapter.COLUMN_EAGLE_ID, eagle_id);
+        values.put(Adapter.COLUMN_EAGLE_ID, eagleID);
         values.put(Adapter.COLUMN_NAME, name);
         Long insertId = database.insert(Adapter.TABLE_USERS, null, values);
         System.out.println(insertId.toString());
@@ -49,17 +49,17 @@ public class UserDataSource {
 
     private User cursorToUser(Cursor cursor) {
         User user = new User();
-        user.set_id(cursor.getInt(0));
-        user.set_eagle_id(cursor.getString(1));
+        user.setID(cursor.getInt(0));
+        user.setEagleID(cursor.getInt(1));
         user.setName(cursor.getString(2));
         return user;
     }
 
-    public void editUser(String new_name, String new_id)
+    public void editUser(String newName, int newID)
     {
         ContentValues values = new ContentValues();
-        values.put(Adapter.COLUMN_EAGLE_ID, new_id);
-        values.put(Adapter.COLUMN_NAME,new_name);
+        values.put(Adapter.COLUMN_EAGLE_ID, newID);
+        values.put(Adapter.COLUMN_NAME,newName);
         database.update(Adapter.TABLE_USERS,values,"_id = 1",null);
 
     }
@@ -72,11 +72,12 @@ public class UserDataSource {
         return (count == 1);
     }
 
-    public String getUserID()
+    public int getUserID()
     {
         String query = "SELECT eagle_id from users where _id = 1";
         Cursor tmp = database.rawQuery(query, null);
         tmp.moveToFirst();
-        return tmp.getString(0);
+        //return tmp.getString(0);
+        return tmp.getInt(0);
     }
 }

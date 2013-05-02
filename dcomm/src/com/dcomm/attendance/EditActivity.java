@@ -32,11 +32,11 @@ public class EditActivity extends Activity {
                 if(view.getId() == R.id.SaveInfo)
                 {
                     name = (EditText)findViewById(R.id.EditedName);
-                    String s_name = name.getText().toString();
+                    String studentName = name.getText().toString();
                     id = (EditText)findViewById(R.id.EditedID);
-                    String s_id = id.getText().toString();
+                    Integer studentID = Integer.parseInt(id.getText().toString());
                     data.open();
-                    data.editUser(s_name,s_id);
+                    data.editUser(studentName,studentID);
                     data.close();
                     Intent myIntent = new Intent(EditActivity.this,MainActivity.class);
                     EditActivity.this.startActivity(myIntent);
@@ -71,7 +71,7 @@ public class EditActivity extends Activity {
                         name = (EditText)findViewById(R.id.EditedName);
                         String studentName = name.getText().toString();
                         id = (EditText)findViewById(R.id.EditedID);
-                        String studentID = id.getText().toString();
+                        Integer studentID = Integer.parseInt(id.getText().toString());
                         data.open();
                         data.editUser(studentName,studentID);
                         data.close();

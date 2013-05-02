@@ -29,11 +29,11 @@ import java.util.List;
 public class Message {
 
     public static final String URL = "http://cslansing.com/attendance/";
-    private String studentID;
-    private String classID;
+    private Integer studentID;
+    private Integer classID;
     private static final String key = "PuN5XfYtn";
 
-    public Message(String studentID, String classID)
+    public Message(int studentID, int classID)
     {
         this.studentID = studentID;
         this.classID = classID;
@@ -45,22 +45,22 @@ public class Message {
 
     }
 
-    public void setStudentID(String studentID)
+    public void setStudentID(int studentID)
     {
         this.studentID = studentID;
     }
 
-    public void setClassID(String ClassID)
+    public void setClassID(int ClassID)
     {
         this.classID = ClassID;
     }
 
-    public String getStudentID()
+    public int getStudentID()
     {
         return studentID;
     }
 
-    public String getClassID()
+    public int getClassID()
     {
         return classID;
     }
@@ -73,8 +73,8 @@ public class Message {
 
         try{
             List<NameValuePair> messagePairs = new ArrayList<NameValuePair>(2);
-            messagePairs.add(new BasicNameValuePair("StudentID",studentID));
-            messagePairs.add(new BasicNameValuePair("ClassID",classID));
+            messagePairs.add(new BasicNameValuePair("StudentID",studentID.toString()));
+            messagePairs.add(new BasicNameValuePair("ClassID",classID.toString()));
             messagePairs.add(new BasicNameValuePair("Key",key));
             post.setEntity(new UrlEncodedFormEntity(messagePairs));
             HttpResponse response = client.execute(post);

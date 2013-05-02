@@ -20,7 +20,7 @@ import android.nfc.*;
 
 public class Nfc {
     private User user;
-    private String classID;
+    private Integer classID;
     public NfcAdapter adapter;
     private static final String TAG = Nfc.class.getSimpleName();
     private NdefMessage[] msgs;
@@ -36,7 +36,7 @@ public class Nfc {
 
     }
 
-    public void setClassID(String classID)
+    public void setClassID(int classID)
     {
         this.classID = classID;
     }
@@ -46,7 +46,7 @@ public class Nfc {
         this.user = u;
     }
 
-    public String getClassID()
+    public int getClassID()
     {
         return this.classID;
     }
@@ -56,12 +56,12 @@ public class Nfc {
         return this.user.getName();
     }
 
-    public String getUserID()
+    public int getUserID()
     {
-        return this.user.get_eagle_id();
+        return this.user.getEagleID();
     }
 
-    public String readTag(Tag tag,Intent intent) {
+    public int readTag(Tag tag,Intent intent) {
         Ndef ndef = Ndef.get(tag);
 
         try {
@@ -72,9 +72,9 @@ public class Nfc {
             NdefRecord record = msg.getRecords()[0];
             String id = new String(record.getPayload());
             id = id.substring(3,id.length());
-            setClassID(id);
+            setClassID(Integer.parseInt(id));
 
-            return new String(id);
+            return Integer.parseInt(id);
         } catch (IOException e) {
             Log.e(TAG, "IOException while reading message...", e);
         } catch (FormatException e) {
@@ -89,6 +89,6 @@ public class Nfc {
                 }
             }
         }
-        return null;
+        return 0;
     }
 }

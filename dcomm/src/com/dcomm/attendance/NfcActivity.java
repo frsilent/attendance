@@ -86,7 +86,7 @@ public class NfcActivity extends Activity {
         detectedTag = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
         message = new Message();
         data.open();
-        String studentID = data.getUserID();
+        Integer studentID = data.getUserID();
         message.setStudentID(studentID);
         message.setClassID(nfc.readTag(detectedTag,getIntent()));    //Set Class ID from the nfc tags content
 
